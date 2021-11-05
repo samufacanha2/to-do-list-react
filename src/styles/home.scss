@@ -1,0 +1,80 @@
+.container {
+  ::-webkit-scrollbar {
+    width: 0.7em;
+  }
+  ::-webkit-scrollbar-track {
+    background: transparent;
+    margin: 10px 0;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background-color: #efefef;
+    box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+  }
+}
+.dashboard {
+  margin-top: 50px;
+  width: 70%;
+  flex-direction: row;
+  max-height: 70%;
+  overflow: auto overlay;
+  border-top: solid #efefef;
+  border-bottom: solid #efefef;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.task-card {
+  margin: 30px auto;
+  width: 80%;
+  max-width: 700px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  max-height: 100px;
+  padding: 10px;
+  box-shadow: 0px 0px 10px rgba(46, 78, 138, 0.5);
+}
+
+.task-title {
+  font-size: 1.8rem;
+  font-weight: bold;
+  color: var(--color-text);
+  margin: 0;
+  letter-spacing: 0.05em;
+}
+.task-description {
+  margin: 0;
+  width: 80%;
+  overflow: hidden;
+}
+
+.empty-tasks {
+  width: 100%;
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--color-text);
+  font-weight: semi-bold;
+}
+.text {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+.task-options {
+  height: 100%;
+  width: 5%;
+  cursor: pointer;
+}
+.delete:hover {
+  color: #f44336;
+}
+.update:hover {
+  color: #3333aa;
+}
+.task-icon {
+  height: 100%;
+  width: 100%;
+}
