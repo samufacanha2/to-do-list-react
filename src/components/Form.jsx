@@ -16,16 +16,22 @@ const Form = ({ update, initialState }) => {
         status: initialState.status,
       });
     }
-  }, []);
+    console.log(initialState, update);
+  }, [initialState, update]);
 
   const history = useHistory();
 
-  const handleSubmit = () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
     if (update) {
-      api.put(`/update/${initialState._id}`, task).then((res) => {
-        console.log(res);
-        history.goBack(); // NAO TA FUNFANDO -----------------------------------------------------
-      });
+      try {
+        console.log(task);
+        await api.put(`/update/${initialState._id}`, task);
+        history.push("/");
+      } catch (err) {
+        alert("Erro ao atualizar a tarefa");
+      }
     } else {
       api.post("/create", task);
       window.location.reload();
@@ -33,7 +39,7 @@ const Form = ({ update, initialState }) => {
   };
 
   return (
-    <form onSubmit={() => handleSubmit()}>
+    <form onSubmit={(e) => handleSubmit(e)}>
       <label className={task.title ? "visible" : null}>Titulo</label>
       <input
         type="text"
