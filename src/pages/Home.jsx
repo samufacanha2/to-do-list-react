@@ -13,16 +13,19 @@ function Home() {
 
   const history = useHistory();
 
-  useEffect(() => {
-    api.get("/get").then((res) => {
+  const getTaskList = async () => {
+    await api.get("/get").then((res) => {
       setTaskList(res.data);
     });
+  };
+  useEffect(() => {
+    getTaskList();
   }, []);
 
   return (
     <div className="Home">
       <div className="container">
-        <Form update={false} />
+        <Form update={false} getTaskList={getTaskList} />
         <div className="dashboard">
           {taskList.length ? (
             taskList.map((task) => {
@@ -43,8 +46,9 @@ function Home() {
                   <div
                     className="task-options delete"
                     onClick={() => {
-                      api.delete(`/delete/${task._id}`);
-                      window.location.reload();
+                      api.delete(`/delete/${task._id}`).then(() => {
+                        getTaskList();
+                      });
                     }}
                   >
                     <BsTrash className="task-icon" />

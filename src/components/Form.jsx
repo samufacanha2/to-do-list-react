@@ -1,13 +1,14 @@
 import api from "../services/api";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useHistory } from "react-router-dom";
 import "../styles/form.scss";
-const Form = ({ update, initialState }) => {
+const Form = ({ update, initialState, getTaskList }) => {
   const [task, setTask] = useState({
     title: "",
     description: "",
     status: false,
   });
+  const formRef = useRef();
   useEffect(() => {
     if (initialState) {
       setTask({
@@ -33,13 +34,16 @@ const Form = ({ update, initialState }) => {
         alert("Erro ao atualizar a tarefa");
       }
     } else {
-      api.post("/create", task);
-      window.location.reload();
+      api.post("/create", task).then(() => {
+        getTaskList().then(() => {
+          formRef.current.reset();
+        });
+      });
     }
   };
 
   return (
-    <form onSubmit={(e) => handleSubmit(e)}>
+    <form onSubmit={(e) => handleSubmit(e)} ref={formRef}>
       <label className={task.title ? "visible" : null}>Titulo</label>
       <input
         type="text"
